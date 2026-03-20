@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Add Gage - Calibration Gage Manager{% endblock %}
+
+{% block content %}
+<section class="form-section">
+    <h2>Add Calibration Gage</h2>
+
+    <form method="post" action="{{ url_for('add') }}">
+        <div class="form-group">
+            <label for="gage_id">Gage ID *</label>
+            <input type="text" id="gage_id" name="gage_id" required maxlength="100"
+                   placeholder="e.g. G-001">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" maxlength="255"
+                   placeholder="Gage description">
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" maxlength="100"
+                   placeholder="Storage location">
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="last_calibration">Last Calibration</label>
+                <input type="date" id="last_calibration" name="last_calibration">
+            </div>
+            <div class="form-group">
+                <label for="next_calibration_due">Next Calibration Due</label>
+                <input type="date" id="next_calibration_due" name="next_calibration_due">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Out for Calibration">Out for Calibration</option>
+            </select>
+        </div>
+        <div class="form-actions">
+            <button type="submit">Add Gage</button>
+            <a href="{{ url_for('index') }}" class="btn-cancel">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

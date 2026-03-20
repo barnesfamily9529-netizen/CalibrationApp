@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Calibration Gages - Calibration Gage Manager{% endblock %}
+
+{% block content %}
+<section class="gages-list">
+    <h2>Calibration Gages</h2>
+
+    {% if gages %}
+    <table>
+        <thead>
+            <tr>
+                <th>Gage ID</th>
+                <th>Description</th>
+                <th>Location</th>
+                <th>Last Calibration</th>
+                <th>Next Due</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for gage in gages %}
+            <tr>
+                <td>{{ gage['gage_id'] }}</td>
+                <td>{{ gage['description'] or '-' }}</td>
+                <td>{{ gage['location'] or '-' }}</td>
+                <td>{{ gage['last_calibration'] or '-' }}</td>
+                <td>{{ gage['next_calibration_due'] or '-' }}</td>
+                <td>{{ gage['status'] }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('edit', gage_pk=gage['id']) }}">Edit</a>
+                    <form action="{{ url_for('delete', gage_pk=gage['id']) }}" method="post" class="inline"
+                          onsubmit="return confirm('Delete this gage?');">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No calibration gages yet. <a href="{{ url_for('add') }}">Add your first gage</a>.</p>
+    {% endif %}
+</section>
+{% endblock %}
